@@ -70,4 +70,6 @@ employeeController.updateEmployee = async (req, res) => {
       { new: true }
     );
     res.json({ message: "employee update" });
-  };
+};
+
+export default employeeController;
