@@ -102,26 +102,22 @@ passwordRecoveryController.newPassword = async (req, res) => {
       let user;
   
       if (userType === "client") {
-        user = await clientsModel.findOne({ email });
+        user = await clientsMdl.findOne({ email });
       } else if (userType === "employee") {
-        user = await employeeModel.findOne({ email });
+        user = await employeesMdl.findOne({ email });
       }
   
-      //Encriptar la contraseña nueva
       const hashPassword = await bcryptjs.hash(newPassword, 10);
-  
-      // ULTIMO PASO
-      // Actualizar la contraseña
   
       let updatedUser;
       if (userType === "client") {
-        updatedUser = await clientsModel.findOneAndUpdate(
+        updatedUser = await clientsMdl.findOneAndUpdate(
           { email },
           { password: hashPassword },
           { new: true }
         );
       } else if (userType === "employee") {
-        updatedUser = await employeeModel.findOneAndUpdate(
+        updatedUser = await employeesMdl.findOneAndUpdate(
           { email },
           { password: hashPassword },
           { new: true }
@@ -135,3 +131,5 @@ passwordRecoveryController.newPassword = async (req, res) => {
       console.log("error" + error);
     }
 };
+
+export default passwordRecoveryController;
